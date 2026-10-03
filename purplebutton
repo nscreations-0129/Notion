@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notion Custom Widget</title>
+  
+  <!-- Tailwind CSS CDN (replaces the bloated compiled CSS) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    // Enable Tailwind Dark Mode support (matches system preference)
+    tailwind.config = {
+      darkMode: 'media',
+    }
+  </script>
+
+  <style>
+    /* Custom CSS adjustments */
+    body {
+      background-color: transparent; /* Blends cleanly into Notion */
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 font-sans antialiased text-slate-800 dark:text-slate-100">
+
+  <!-- Widget Card Container -->
+  <div class="w-full max-w-md bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
+    
+    <!-- Widget Header -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-2">
+        <span class="h-3 w-3 rounded-full bg-purple-500"></span>
+        <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Direct Mail Hub</h2>
+      </div>
+      <span id="widget-status" class="text-xs px-2 py-1 rounded-full bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-slate-300">Ready</span>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="space-y-4">
+      <p class="text-2xl font-bold tracking-tight">
+        Send Campaign
+      </p>
+      <p class="text-sm text-slate-500 dark:text-slate-400">
+        Quickly launch and direct recipient mailings straight from your workspace.
+      </p>
+
+      <!-- Primary Action Link/Button -->
+      <a href="https://example.com" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="inline-flex w-full items-center justify-center px-5 py-3 rounded-xl font-medium bg-purple-600 text-white border-2 border-purple-600 hover:bg-white hover:text-purple-600 dark:hover:bg-zinc-900 dark:hover:text-purple-400 transition-all duration-200 shadow-sm hover:shadow-purple-500/20">
+        Launch Direct Mail &rarr;
+      </a>
+    </div>
+
+    <!-- Widget Footer / Dynamic JS Output -->
+    <div class="mt-6 pt-4 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-xs text-slate-400">
+      <span>Updated <span id="time-display">--:--</span></span>
+      <button id="refresh-btn" class="hover:text-purple-500 transition-colors">Refresh</button>
+    </div>
+
+  </div>
+
+  <!-- Custom Script (Replaces heavy scripts with clean Vanilla JS) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const timeDisplay = document.getElementById('time-display');
+      const refreshBtn = document.getElementById('refresh-btn');
+
+      function updateWidget() {
+        const now = new Date();
+        timeDisplay.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+
+      refreshBtn.addEventListener('click', updateWidget);
+      updateWidget();
+    });
+  </script>
+
+</body>
+</html>
